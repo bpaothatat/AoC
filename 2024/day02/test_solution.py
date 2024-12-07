@@ -1,6 +1,6 @@
 import os
 import unittest
-from solution import parse_input, solve_part1#, solve_part2
+from solution import parse_input, solve_part1, solve_part2
 
 class TestSolution(unittest.TestCase):
     @classmethod
@@ -16,10 +16,10 @@ class TestSolution(unittest.TestCase):
         expected = 2  
         self.assertEqual(solve_part1(self.data), expected)
 
-    # def test_part2(self):
-    #     """Test part 2 of the solution."""
-    #     expected = 31 
-    #     self.assertEqual(solve_part2(self.col1, self.col2), expected)
+    def test_part2(self):
+        """Test part 2 of the solution."""
+        expected = 4 
+        self.assertEqual(solve_part2(self.data), expected)
 
 if __name__ == "__main__":
     unittest.main()
