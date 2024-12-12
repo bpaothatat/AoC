@@ -1,4 +1,5 @@
 import os
+import re
 
 def read_input(file_path: str) -> str:
     """Read input from a file and return its contents as a string."""
@@ -11,18 +12,30 @@ def parse_input(input_data: str) -> list[list[int]]:
     lines = input_data.splitlines()
   
     for line in lines:
-        data.append(list(map(int, line.split())))
+        data += find_mul_instances(line)
 
     return data
 
-def solve_part1(data: list[list[int]]):
+def find_mul_instances(line: str) ->  list[str]:
+    pattern = r'mul\(\d{1,3},\d{1,3}\)'
+    
+    matches = re.findall(pattern, line)
+    return matches
+
+def calculate_instructions(data: list[str]) -> int:
+    result = 0
+
+    for item in data:
+        pattern = r'mul\((\d+),(\d+)\)'
+        match = re.search(pattern, item)
+        if match:
+            number1, number2 = match.groups()
+            result += int(number1) * int(number2)
+    return result
+
+def solve_part1(data: list[str]):
     """Solve part 1 of the day's challenge."""
-    counter = 0
-    for line in data:
-        differences = [line[i + 1] - line[i] for i  in range(len(line) - 1)]
-        if all(num < 0 and num > -4 for num in differences) or all(num < 4 and num > 0 for num in differences):
-            counter += 1
-    return counter
+    return calculate_instructions(data)
 
 
 def solve_part2(data: list[list[int]]):
