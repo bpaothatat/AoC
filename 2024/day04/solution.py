@@ -37,9 +37,7 @@ def solve_part1(grid: list[str], word: str):
 
     return total_count
 
-
-# Helper function to search in one direction
-def search_direction(grid, start_row, start_col, delta_row, delta_col, word):
+def search_direction(grid: list[str], start_row: int, start_col: int, delta_row: int, delta_col: int, word: str):
     rows = len(grid)
     cols = len(grid[0])
     word_length = len(word)
@@ -53,9 +51,25 @@ def search_direction(grid, start_row, start_col, delta_row, delta_col, word):
     return 1
     
 
-def solve_part2(data: list[list[int]]):
-    """Solve part 2 of the day's challenge."""
+def x_mas_search(grid: list[str], r: int, c: int):
+    row_length = len(grid)
+    col_length = len(grid[0])
+    if r - 1 >= 0 and r + 1 < row_length and  c - 1 >= 0 and c + 1 < col_length:
+        if ((grid[r-1][c+1] == 'S' and grid[r+1][c-1] == 'M') or (grid[r-1][c+1] == 'M' and grid[r+1][c-1] == 'S')) and ((grid[r-1][c-1] == 'S' and grid[r+1][c+1] == 'M') or (grid[r-1][c-1] == 'M' and grid[r+1][c+1] == 'S')):
+            return 1
     return 0
+
+def solve_part2(grid: list[str]):
+    rows = len(grid)
+    cols = len(grid[0])
+    total_count = 0
+
+    for row in range(rows):
+        for col in range(cols):
+            if grid[row][col] == 'A':
+                total_count += x_mas_search(grid, row, col)
+
+    return total_count
 
 if __name__ == "__main__":
     # Load and parse input
@@ -65,4 +79,4 @@ if __name__ == "__main__":
     
     # Solve parts
     print("Part 1:", solve_part1(grid, "XMAS"))
-    # print("Part 2:", solve_part2(col1, col2))
+    print("Part 2:", solve_part2(grid))
