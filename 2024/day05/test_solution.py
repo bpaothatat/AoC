@@ -1,6 +1,6 @@
 import os
 import unittest
-from solution import parse_input, solve_part1#, solve_part2
+from solution import SafetyManual, parse_input, solve_part1#, solve_part2
 
 class TestSolution(unittest.TestCase):
     @classmethod
@@ -9,12 +9,12 @@ class TestSolution(unittest.TestCase):
         file_path = os.path.join(os.path.dirname(__file__), "test_input.txt")
         with open(file_path, 'r') as f:
             input_data = f.read()
-        cls.data = parse_input(input_data)
+        cls.safety_manual = parse_input(input_data)
 
     def test_part1(self):
         """Test part 1 of the solution."""
-        expected = 161
-        self.assertEqual(solve_part1(self.data), expected)
+        expected = 143
+        self.assertEqual(solve_part1(self.safety_manual), expected)
 
     # def test_part2(self):
     #     """Test part 2 of the solution."""
